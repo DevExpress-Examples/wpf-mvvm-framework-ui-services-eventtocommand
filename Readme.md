@@ -47,12 +47,12 @@ The code below shows the **EditCommand** implementation code both in a [Runtime 
 //POCO ViewModel
 [POCOViewModel]
 public class MainViewModel {
-    public void Edit(Person person) {
-        ...
-    }
-    public bool CanEdit(Person person) {
-        return person != null;
-    }
+	public void Edit(Person person) {
+		...
+	}
+	public bool CanEdit(Person person) {
+		return person != null;
+	}
 }
 //Common ViewModel
 public class MainViewModel {
