@@ -3,22 +3,13 @@
 [![](https://img.shields.io/badge/Open_in_DevExpress_Support_Center-FF7200?style=flat-square&logo=DevExpress&logoColor=white)](https://supportcenter.devexpress.com/ticket/details/T142075)
 [![](https://img.shields.io/badge/📖_How_to_use_DevExpress_Examples-e9f6fc?style=flat-square)](https://docs.devexpress.com/GeneralInformation/403183)
 <!-- default badges end -->
-<!-- default file list -->
-*Files to look at*:
+# Use the EventToCommand Behavior to Execute a Command when an Event is Raised
 
-* [MouseEventArgsConverter.cs](./CS/Common/MouseEventArgsConverter.cs) (VB: [MouseEventArgsConverter.vb](./VB/Common/MouseEventArgsConverter.vb))
-* **[MainView.xaml](./CS/View/MainView.xaml) (VB: [MainView.xaml](./VB/View/MainView.xaml))**
-* [MainViewModel.cs](./CS/ViewModel/MainViewModel.cs) (VB: [MainViewModel.vb](./VB/ViewModel/MainViewModel.vb))
-<!-- default file list end -->
-# How to: Use EventToCommand
+The [EventToCommand](https://docs.devexpress.com/WPF/DevExpress.Mvvm.UI.EventToCommand) [behavior](https://docs.devexpress.com/WPF/17442/mvvm-framework/behaviors) allows you to bind an event to a command. In this case, the bound command is invoked like an event handler when the event is raised.
 
-The [EventToCommand](https://docs.devexpress.com/WPF/DevExpress.Mvvm.UI.EventToCommand) class is a **Behavior** that allows you to bind an event to a command. This way, the bound command is invoked like an event handler when the event is raised.
+In this example, the [EventToCommand](https://docs.devexpress.com/WPF/DevExpress.Mvvm.UI.EventToCommand) is used to call the event that shows an edit form when a user clicks an item in the [ListBox](https://docs.microsoft.com/en-us/dotnet/api/system.windows.controls.listbox).
 
-This example demonstrates how to use the EventToCommand:
-
-Assume that there is a **ListBox** control that displays data. When an end user clicks an item in the **ListBox**, it is necessary to show an edit form.
-
-To accomplish this task, you can use the **EventToCommand** behavior. Place the **EventToCommand** into the **Interaction.Behaviors** collection for the **ListBox** control and customize it as shown below.
+The code snippet below defines an [EventToCommand](https://docs.devexpress.com/WPF/DevExpress.Mvvm.UI.EventToCommand) that processes the [ListBox](https://docs.microsoft.com/en-us/dotnet/api/system.windows.controls.listbox)'s [MouseDoubleClick](https://docs.microsoft.com/en-us/dotnet/api/system.windows.controls.control.mousedoubleclick) event. When the event is raised, the [EventToCommand](https://docs.devexpress.com/WPF/DevExpress.Mvvm.UI.EventToCommand) invokes the bound **EditCommand**. This command requires a parameter: a **Person** object to be edited.
 
 ```xaml
 <UserControl x:Class="Example.View.MainView" ...
@@ -42,8 +33,6 @@ To accomplish this task, you can use the **EventToCommand** behavior. Place the 
     </Grid>
 </UserControl>
 ```
-
-This code defines an **EventToCommand** that processes the **MouseDoubleClick** event for the **ListBox**. When the event is raised, the **EventToCommand** invokes the bound **EditCommand**. This command requires a parameter: a **Person** object to be edited.
 
 The code below shows the **EditCommand** implementation code both in a [Runtime POCO ViewModel](https://docs.devexpress.com/WPF/17352/mvvm-framework/viewmodels/poco-viewmodels) and a common ViewModel.
 
@@ -74,7 +63,7 @@ public class MainViewModel {
 }
 ```
 
-In this case, it is necessary to take the clicked **ListBoxItem** and obtain its **DataContext** - this is what the **EventToCommand** should pass to the **EditCommand** as a parameter. This operation is performed by the custom **ListBoxEventArgsConverter**. Its code is shown below.
+In this case, it is necessary to take the clicked [ListBoxItem](https://docs.microsoft.com/en-us/dotnet/api/system.windows.controls.listboxitem) and obtain its **DataContext** - this is what the [EventToCommand](https://docs.devexpress.com/WPF/DevExpress.Mvvm.UI.EventToCommand) should pass to the **EditCommand** as a parameter. This operation is performed by the custom **ListBoxEventArgsConverter**:
 
 ```csharp
 using DevExpress.Mvvm.UI;
@@ -94,6 +83,20 @@ public class ListBoxEventArgsConverter : EventArgsConverterBase<MouseEventArgs> 
 }
 ```
 
-The **ListBoxEventArgsConverter** class inherits from the **EventArgsConverterBase** class and contains **Convert** method, which is used by the **EventToCommand** for conversion event arguments.
+The **ListBoxEventArgsConverter** class inherits from the **EventArgsConverterBase** class and contains **Convert** method. The [EventToCommand](https://docs.devexpress.com/WPF/DevExpress.Mvvm.UI.EventToCommand) uses this method to convert an event's arguments.
 
-In this scenario, the **EventToCommand** passes a **MouseEventArgs** object to the **ListBoxEventArgsConverter**. The converter finds the clicked **ListBoxItem** using the [](https://docs.devexpress.com/WPF/17673/mvvm-framework/layouttreehelper) class and returns its **DataContext**, which contains an underlying **Person** object. The resulting **Person** object is then passed to the bound **EditCommand**.
+In this scenario, the [EventToCommand](https://docs.devexpress.com/WPF/DevExpress.Mvvm.UI.EventToCommand) passes a [MouseEventArgs](https://docs.microsoft.com/en-us/dotnet/api/system.windows.input.mouseeventargs) object to the **ListBoxEventArgsConverter**. The converter uses the [](https://docs.devexpress.com/WPF/17673/mvvm-framework/layouttreehelper) class to find the clicked **ListBoxItem** and then returns its **DataContext**, which contains an underlying **Person** object. The resulting **Person** object is then passed to the bound **EditCommand**.
+
+
+<!-- default file list -->
+## Files to Look At
+
+* [MouseEventArgsConverter.cs](./CS/Common/MouseEventArgsConverter.cs) (VB: [MouseEventArgsConverter.vb](./VB/Common/MouseEventArgsConverter.vb))
+* **[MainView.xaml](./CS/View/MainView.xaml) (VB: [MainView.xaml](./VB/View/MainView.xaml))**
+* [MainViewModel.cs](./CS/ViewModel/MainViewModel.cs) (VB: [MainViewModel.vb](./VB/ViewModel/MainViewModel.vb))
+<!-- default file list end -->
+
+## Documentation
+
+* [EventToCommand Behavior](https://docs.devexpress.com/WPF/DevExpress.Mvvm.UI.EventToCommand)
+* [Behaviors](https://docs.devexpress.com/WPF/17442/mvvm-framework/behaviors)
