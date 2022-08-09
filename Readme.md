@@ -84,7 +84,7 @@ public class ListBoxEventArgsConverter : EventArgsConverterBase<MouseEventArgs> 
 
 The **ListBoxEventArgsConverter** class inherits from the **EventArgsConverterBase** class and contains **Convert** method. The [EventToCommand](https://docs.devexpress.com/WPF/DevExpress.Mvvm.UI.EventToCommand) uses this method to convert an event's arguments.
 
-In this scenario, the [EventToCommand](https://docs.devexpress.com/WPF/DevExpress.Mvvm.UI.EventToCommand) passes a [MouseEventArgs](https://docs.microsoft.com/en-us/dotnet/api/system.windows.input.mouseeventargs) object to the **ListBoxEventArgsConverter**. The converter uses the [](https://docs.devexpress.com/WPF/17673/mvvm-framework/layouttreehelper) class to find the clicked **ListBoxItem** and then returns its **DataContext**, which contains an underlying **Person** object. The resulting **Person** object is then passed to the bound **EditCommand**.
+In this scenario, the [EventToCommand](https://docs.devexpress.com/WPF/DevExpress.Mvvm.UI.EventToCommand) passes a [MouseEventArgs](https://docs.microsoft.com/en-us/dotnet/api/system.windows.input.mouseeventargs) object to the **ListBoxEventArgsConverter**. The converter uses the [](https://docs.devexpress.com/WPF/17673/mvvm-framework/layouttreehelper) class to find the clicked **ListBoxItem** and then returns its **DataContext** that contains the underlying **Person** object. The resulting **Person** object is then passed to the bound **EditCommand**.
 
 
 <!-- default file list -->
