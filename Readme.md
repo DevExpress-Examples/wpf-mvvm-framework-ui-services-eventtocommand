@@ -3,13 +3,13 @@
 [![](https://img.shields.io/badge/Open_in_DevExpress_Support_Center-FF7200?style=flat-square&logo=DevExpress&logoColor=white)](https://supportcenter.devexpress.com/ticket/details/T142075)
 [![](https://img.shields.io/badge/📖_How_to_use_DevExpress_Examples-e9f6fc?style=flat-square)](https://docs.devexpress.com/GeneralInformation/403183)
 <!-- default badges end -->
-# Use the EventToCommand Behavior to Execute a Command when an Event is Raised
+# Use the EventToCommand Behavior to Execute Commands when an Event is Raised
 
-The [EventToCommand](https://docs.devexpress.com/WPF/DevExpress.Mvvm.UI.EventToCommand) [behavior](https://docs.devexpress.com/WPF/17442/mvvm-framework/behaviors) allows you to bind an event to a command. In this case, the bound command is invoked like an event handler when the event is raised.
+The [EventToCommand](https://docs.devexpress.com/WPF/DevExpress.Mvvm.UI.EventToCommand) [behavior](https://docs.devexpress.com/WPF/17442/mvvm-framework/behaviors) allows you to bind an event to a command. When used, the bound command is invoked like an event handler when the event is raised.
 
-In this example, the [EventToCommand](https://docs.devexpress.com/WPF/DevExpress.Mvvm.UI.EventToCommand) is used to call the event that shows an edit form when a user clicks an item in the [ListBox](https://docs.microsoft.com/en-us/dotnet/api/system.windows.controls.listbox).
+In this example, the [EventToCommand](https://docs.devexpress.com/WPF/DevExpress.Mvvm.UI.EventToCommand) is used (to call an event) to display an edit form when a user clicks an item in the [ListBox](https://docs.microsoft.com/en-us/dotnet/api/system.windows.controls.listbox).
 
-The code snippet below defines an [EventToCommand](https://docs.devexpress.com/WPF/DevExpress.Mvvm.UI.EventToCommand) that processes the [ListBox](https://docs.microsoft.com/en-us/dotnet/api/system.windows.controls.listbox)'s [MouseDoubleClick](https://docs.microsoft.com/en-us/dotnet/api/system.windows.controls.control.mousedoubleclick) event. When the event is raised, the [EventToCommand](https://docs.devexpress.com/WPF/DevExpress.Mvvm.UI.EventToCommand) invokes the bound **EditCommand**. This command requires a parameter: a **Person** object to be edited.
+The code snippet below defines the [EventToCommand](https://docs.devexpress.com/WPF/DevExpress.Mvvm.UI.EventToCommand) that processes the [ListBox](https://docs.microsoft.com/en-us/dotnet/api/system.windows.controls.listbox)'s [MouseDoubleClick](https://docs.microsoft.com/en-us/dotnet/api/system.windows.controls.control.mousedoubleclick) event. When the event is raised, the [EventToCommand](https://docs.devexpress.com/WPF/DevExpress.Mvvm.UI.EventToCommand) invokes the bound **EditCommand**. This command requires a parameter: a **Person** object to be edited.
 
 ```xaml
 <UserControl x:Class="Example.View.MainView" ...
@@ -34,7 +34,7 @@ The code snippet below defines an [EventToCommand](https://docs.devexpress.com/W
 </UserControl>
 ```
 
-The code below shows the **EditCommand** implementation code both in a [Runtime POCO ViewModel](https://docs.devexpress.com/WPF/17352/mvvm-framework/viewmodels/poco-viewmodels) and a common ViewModel.
+The code below illustrates an implementation of the **EditCommand** in both the [Runtime POCO ViewModel](https://docs.devexpress.com/WPF/17352/mvvm-framework/viewmodels/poco-viewmodels) and the common ViewModel.
 
 
 ```csharp
@@ -63,7 +63,7 @@ public class MainViewModel {
 }
 ```
 
-In this case, it is necessary to take the clicked [ListBoxItem](https://docs.microsoft.com/en-us/dotnet/api/system.windows.controls.listboxitem) and obtain its **DataContext** - this is what the [EventToCommand](https://docs.devexpress.com/WPF/DevExpress.Mvvm.UI.EventToCommand) should pass to the **EditCommand** as a parameter. This operation is performed by the custom **ListBoxEventArgsConverter**:
+In this specific instance, you must obtain the **DataContext** for the clicked [ListBoxItem](https://docs.microsoft.com/en-us/dotnet/api/system.windows.controls.listboxitem). This is what the [EventToCommand](https://docs.devexpress.com/WPF/DevExpress.Mvvm.UI.EventToCommand) should pass to the **EditCommand** as a parameter. This operation is performed by the custom **ListBoxEventArgsConverter**:
 
 ```csharp
 using DevExpress.Mvvm.UI;
@@ -83,9 +83,9 @@ public class ListBoxEventArgsConverter : EventArgsConverterBase<MouseEventArgs> 
 }
 ```
 
-The **ListBoxEventArgsConverter** class inherits from the **EventArgsConverterBase** class and contains **Convert** method. The [EventToCommand](https://docs.devexpress.com/WPF/DevExpress.Mvvm.UI.EventToCommand) uses this method to convert an event's arguments.
+The **ListBoxEventArgsConverter** class inherits from the **EventArgsConverterBase** class and contains the **Convert** method. The [EventToCommand](https://docs.devexpress.com/WPF/DevExpress.Mvvm.UI.EventToCommand) uses this method to convert event arguments.
 
-In this scenario, the [EventToCommand](https://docs.devexpress.com/WPF/DevExpress.Mvvm.UI.EventToCommand) passes a [MouseEventArgs](https://docs.microsoft.com/en-us/dotnet/api/system.windows.input.mouseeventargs) object to the **ListBoxEventArgsConverter**. The converter uses the [](https://docs.devexpress.com/WPF/17673/mvvm-framework/layouttreehelper) class to find the clicked **ListBoxItem** and then returns its **DataContext** that contains the underlying **Person** object. The resulting **Person** object is then passed to the bound **EditCommand**.
+In this scenario, the [EventToCommand](https://docs.devexpress.com/WPF/DevExpress.Mvvm.UI.EventToCommand) passes a [MouseEventArgs](https://docs.microsoft.com/en-us/dotnet/api/system.windows.input.mouseeventargs) object to the **ListBoxEventArgsConverter**. The converter uses the [LayoutTreeHelper](https://docs.devexpress.com/WPF/17673/mvvm-framework/layouttreehelper) class to locate the clicked **ListBoxItem** and then returns its **DataContext** (which contains the underlying **Person** object). The resulting **Person** object is then passed to the bound **EditCommand**.
 
 
 <!-- default file list -->
